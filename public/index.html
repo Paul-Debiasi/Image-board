@@ -21,25 +21,36 @@
 		<ul>
 		 <div v-for="image in images" >
 			
-			<img @click="imageClicked" :src="image.url" alt="">
+			<img @click="imageClicked(image.id)" :src="image.url" alt="">
 			<p>{{ image.title }}</p>
 		 </div>
 		</ul>
 <!-- In say-greeting we using column(:) so we can change dynamically change value of it -->
-		<my-component v-if='imageSelected' :image-id ='imageSelected' @close="closeMePlease"></my-component>
+		<my-component v-if='imageSelected' :id='imageSelected' @close="closeMePlease"></my-component>
 	</div>
 	<!-- Our script need to be outside of main -->
-	<script type="text/x-template" id= "template"src="">
+	<script type="text/x-template" id="template"src="">
 	<div class="component">
-		<!-- V-show can help me to hide o show my-component
-		:disable="if click is out side of the frame for example" 
-	    :class="{name of the class: and the situation we want to used it(turn red input field if comment.length<4 ? 'class-name': 'other class-name')}"-->
-			<!-- <img :src="image.url" alt="">
-			<p>{{ image.title }}</p>
-			<p>{{ image.description }}</p>
-			<p>{{ image.username }}</p>
-			<ul> -->
-	<h1>Hi I'm the modal</h1>
+	
+		<h1>Hi I'm the modal</h1>
+		<img :src="imageInfo.url" alt="">
+		<!-- <p>{{imageInfo.url}}</p> -->
+		<p>{{imageInfo.title}}</p>
+		<p>{{imageInfo.description}}</p>
+		<p>{{imageInfo.username}}</p>
+		<h1>Add Comment!</h1>
+		<form action="">
+		 <label for="comments">Comment</label>
+				<input v-model="comments"  type="text" name="comment" placeholder="Put your comment here">
+		
+		 <label for="username">Username</label>
+				<input v-model="username"  type="text" name="username" placeholder="User...">
+
+				<input type="submit" value="SUBMIT"> 
+		
+	
+		</form>
+	</div>
 	
 	</script>
     <script src="/js/vue.js"></script>

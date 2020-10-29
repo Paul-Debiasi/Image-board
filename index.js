@@ -26,7 +26,7 @@ const uploader = multer({
     },
 });
 
-app.get("/images", (req, res) => {
+app.get("/image", (req, res) => {
     db.getImages()
         .then((results) => {
             res.json(results.rows);
@@ -35,15 +35,6 @@ app.get("/images", (req, res) => {
         .catch((err) => {
             console.log("Error in getImages: ", err);
             res.send("error");
-        });
-});
-app.get("/images", (req, res) => {
-    db.imagesId(imageId)
-        .then((results) => {
-            console.log("ImagesId results:", results);
-        })
-        .catch((err) => {
-            console.log("error in ImagesId:", err);
         });
 });
 // uploader is middleware in charge to handle the coming file and allowed it to upload
@@ -75,6 +66,20 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             success: false,
         });
     }
+});
+app.get("/image/:id", (req, res) => {
+    const { id } = req.params;
+    // const { image } = req.file;
+    // console.log("imageId:", imageId);
+    db.getSingleImage(id)
+        .then((results) => {
+            // console.log("SingleImage:", results);
+            res.json(results.rows[0]);
+            console.log("ImagesId results:", results.rows[0]);
+        })
+        .catch((err) => {
+            console.log("error in ImagesId:", err);
+        });
 });
 
 app.listen(8080, () => console.log("Server is running..."));
