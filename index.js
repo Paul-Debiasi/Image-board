@@ -37,6 +37,15 @@ app.get("/images", (req, res) => {
             res.send("error");
         });
 });
+app.get("/images", (req, res) => {
+    db.imagesId(imageId)
+        .then((results) => {
+            console.log("ImagesId results:", results);
+        })
+        .catch((err) => {
+            console.log("error in ImagesId:", err);
+        });
+});
 // uploader is middleware in charge to handle the coming file and allowed it to upload
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     // multer
@@ -46,9 +55,9 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
     const { title, description, username } = req.body;
     // ("https://s3.amazonaws.com/spicedling/");
-    console.log("url:", imageUrl);
-    console.log(title, description, username, imageUrl);
-    console.log("files:", req.file);
+    // console.log("url:", imageUrl);
+    // console.log(title, description, username, imageUrl);
+    // console.log("files:", req.file);
     if (req.file) {
         db.imagesInfo(title, description, username, imageUrl)
             .then((results) => {

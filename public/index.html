@@ -15,17 +15,33 @@
 			<label for="file">
 			  <input class="inputfile" @change='handleChange'  type="file" name="file" accept="image/*">
 		    </label>
-			<button @click= "handleClick">Submit</button>
+			<button @click.prevent= "handleClick">Submit</button>
 		</form>
 	
 		<ul>
 		 <div v-for="image in images" >
 			
-			<img :src="image.url" alt="">
+			<img @click="imageClicked" :src="image.url" alt="">
 			<p>{{ image.title }}</p>
 		 </div>
 		</ul>
+<!-- In say-greeting we using column(:) so we can change dynamically change value of it -->
+		<my-component v-if='imageSelected' :image-id ='imageSelected' @close="closeMePlease"></my-component>
 	</div>
+	<!-- Our script need to be outside of main -->
+	<script type="text/x-template" id= "template"src="">
+	<div class="component">
+		<!-- V-show can help me to hide o show my-component
+		:disable="if click is out side of the frame for example" 
+	    :class="{name of the class: and the situation we want to used it(turn red input field if comment.length<4 ? 'class-name': 'other class-name')}"-->
+			<!-- <img :src="image.url" alt="">
+			<p>{{ image.title }}</p>
+			<p>{{ image.description }}</p>
+			<p>{{ image.username }}</p>
+			<ul> -->
+	<h1>Hi I'm the modal</h1>
+	
+	</script>
     <script src="/js/vue.js"></script>
 	<script src="/js/axios.min.js"></script>
 	<script src="/js/script.js"></script>

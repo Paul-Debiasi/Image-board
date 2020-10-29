@@ -1,6 +1,10 @@
 body {
     background-color: darkslategray;
 }
+img {
+    height: 200px;
+    width: 200px;
+}
 
 /* .inputfile label {
     font-size: 1.25em;

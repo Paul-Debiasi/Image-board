@@ -4,9 +4,6 @@ var db = spicedPg(
         `postgres:postgres:postgres@localhost:5432/imageboard`,
 );
 
-module.exports.getImages = () => {
-    return db.query(`SELECT * FROM images`);
-};
 module.exports.imagesInfo = (title, description, username, url) => {
     return db.query(
         `INSERT INTO images (title, description, username, url)
@@ -14,4 +11,22 @@ module.exports.imagesInfo = (title, description, username, url) => {
 		RETURNING *`,
         [title, description, username, url],
     );
+};
+module.exports.getImages = () => {
+    return db.query(`SELECT * FROM images`);
+};
+module.exports.getSingleImage = (id) => {
+    return db.query(`SELECT * FROM images WHERE id = $1`, [id]);
+};
+module.exports.getComments = (comment, username, imageId) => {
+    return db.query(
+        `INSERT INTO users (comment, username, imageId) 
+        VALUES ($1, $2, $3) 
+        RETURNING comment, username, imageId, ;
+`,
+        [comment, username, imageId],
+    );
+};
+module.exports.imagesId = (imageId) => {
+    return db.query(`SELECT * FROM images WHERE imageId = $1`, [imageId]);
 };

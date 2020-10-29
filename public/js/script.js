@@ -1,4 +1,44 @@
+// const { response } = require("express");
+
 console.log("Sanity??");
+Vue.component("my-component", {
+    template: "#template",
+    props: ["imageId"],
+    data: function () {
+        return {
+            image: "",
+            username: "",
+            comments: [],
+            imageSelected: null,
+        };
+    },
+    mounted: function () {
+        var me = this;
+        axios
+            .get(`/image/${this.imageId}`)
+            .then(function (response) {
+                me.image = response.data[0];
+            })
+            .catch(function (err) {
+                console.log("err in imageSelected", err);
+            });
+    },
+    methods: {
+        changeName: function () {
+            if (this.name) this.name = "Pimento";
+        },
+        closeModal: function () {
+            console.log("closeModal run and about to Emit from component");
+            this.$emit("close");
+        },
+        imageClicked: function () {
+            var that = this;
+            imageSelected = true;
+            that.image.id = imageId;
+            console.log("image got clicked");
+        },
+    },
+});
 
 new Vue({
     el: "#main",
@@ -8,6 +48,9 @@ new Vue({
         description: "",
         username: "",
         file: null,
+        checkForSomething: true,
+        sayGreeting: "hello",
+        imageSelected: null,
     },
     mounted: function () {
         // console.log("this.cities:", this.cities);
@@ -16,6 +59,15 @@ new Vue({
             console.log("response:", response);
             me.images = response.data;
         });
+        var me = this;
+        axios
+            .get(`/image/${this.imageSelected}`)
+            .then(function (response) {
+                me.image = response.data[0];
+            })
+            .catch(function (err) {
+                console.log("err in imageSelected", err);
+            });
     },
     methods: {
         handleClick: function (e) {
@@ -32,12 +84,12 @@ new Vue({
             axios
                 .post("/upload", formData)
                 .then(function (response) {
-                    console.log(
-                        "response from POST /upload:",
-                        response.data.image,
-                    );
+                    // console.log(
+                    //     "response from POST /upload:",
+                    //     response.data.image,
+                    // );
                     // var res = response.data.image;
-                    console.log("that.images:", that.images);
+                    // console.log("that.images:", that.images);
                     that.images.unshift(response.data.image);
                 })
                 .catch(function (err) {
@@ -49,5 +101,21 @@ new Vue({
             // console.log("file:", e.target.files[0]);
             this.file = e.target.files[0];
         },
+        closeMePlease: function () {
+            console.log("closeMePlease is running");
+            // set the id to something falsy (null)
+        },
+        imageClicked: function () {
+            // var that = this;
+            // imageSelected = true;
+            // that.image.id = imageSelected;
+            console.log("image got clicked");
+        },
     },
 });
+
+//methods:{
+//  addComment	function()=>{
+// 	this.comment.unshift(response.data.rows)
+//  } whit this function I'm pushing in to my array. || On my html --> i can render dynamically my comment using v-on:keyup.enter = 'addComment'
+// }
