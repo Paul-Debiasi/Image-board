@@ -1,60 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-	<title>Image Board</title>
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
-	<h1>This is the imageboard!</h1>
-	<div id ="main">
-		<form action="">
-			<!-- Whit v-model we are connecting the input field with script.js -->
-			<input v-model="title" type="text" placeholder="title" name="title">
-			<input v-model="description"  type="text" name="description" placeholder="description">
-			<input v-model="username"  type="text" name="username" placeholder="username">
-			<label for="file">
-			  <input class="inputfile" @change='handleChange'  type="file" name="file" accept="image/*">
-		    </label>
-			<button @click.prevent= "handleClick">Submit</button>
-		</form>
-	
-		<ul>
-		 <div v-for="image in images" >
-			
-			<img @click="imageClicked(image.id)" :src="image.url" alt="">
-			<p>{{ image.title }}</p>
-		 </div>
-		</ul>
-<!-- In say-greeting we using column(:) so we can change dynamically change value of it -->
-		<my-component v-if='imageSelected' :id='imageSelected' @close="closeMePlease"></my-component>
-	</div>
-	<!-- Our script need to be outside of main -->
-	<script type="text/x-template" id="template"src="">
-	<div class="component">
-	
-		<h1>Hi I'm the modal</h1>
-		<img :src="imageInfo.url" alt="">
-		<!-- <p>{{imageInfo.url}}</p> -->
-		<p>{{imageInfo.title}}</p>
-		<p>{{imageInfo.description}}</p>
-		<p>{{imageInfo.username}}</p>
-		<h1>Add Comment!</h1>
-		<form action="">
-		 <label for="comments">Comment</label>
-				<input v-model="comments"  type="text" name="comment" placeholder="Put your comment here">
-		
-		 <label for="username">Username</label>
-				<input v-model="username"  type="text" name="username" placeholder="User...">
+  <head>
+    <title>Image Board</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-				<input type="submit" value="SUBMIT"> 
-		
-	
-		</form>
-	</div>
-	
-	</script>
+  <body>
+    <h1>This is the imageboard!</h1>
+    <div id="main">
+      <form action="">
+        <!-- Whit v-model we are connecting the input field with script.js -->
+        <input v-model="title" type="text" placeholder="title" name="title" />
+        <input
+          v-model="description"
+          type="text"
+          name="description"
+          placeholder="description"
+        />
+        <input
+          v-model="username"
+          type="text"
+          name="username"
+          placeholder="username"
+        />
+        <label for="file">
+          <input
+            class="inputfile"
+            @change="handleChange"
+            type="file"
+            name="file"
+            accept="image/*"
+          />
+        </label>
+        <button @click.prevent="handleClick">Submit</button>
+      </form>
+      <ul>
+        <div v-for="image in images">
+          <img @click="imageClicked(image.id)" :src="image.url" alt="" />
+          <p>{{ image.title }}</p>
+        </div>
+      </ul>
+      <!-- In say-greeting we using column(:) so we can change dynamically change value of it -->
+      <my-component
+        v-if="imageSelected"
+        :id="imageSelected"
+        @close="imageSelected = false"
+      ></my-component>
+    </div>
+    <!-- Our script need to be outside of main -->
+    <script type="text/x-template" id="template" src="">
+         <transition name="my-component">
+            <div class="modal-mask">
+                 <div class="modal-wrapper">
+                     <div class="modal-container">
+                      	<!-- <div class="component"> -->
+            			<button class="btn-close-modal" @click="$emit('close')" >X</button>
+            				<div class="modal-header">
+      							<h1>Hi I'm the modal</h1>
+                      			<img :src="imageInfo.url" alt="">
+                      			<!-- <p>{{imageInfo.url}}</p> -->
+                      			<p>{{imageInfo.title}}</p>
+                      			<p>{{imageInfo.description}}</p>
+                      			<p>Uploaded by {{imageInfo.username}}</p>
+           					 </div>
+      				<div class="modal-body">
+      					<h1>Add Comment!</h1>
+      					<form action="">
+          		<label for="comments">Comment</label>
+          		<input class="input-modal" v-model="comment"  type="text" name="comment" placeholder="Put your comment here">
+          		<label for="username">Username</label>
+          		<input class="input-modal" v-model="username"  type="text" name="username" placeholder="User...">
+          		<input v-model='imageId' type="hidden" name="imageId">
+          		<Button class="btn-modal-comment"type="submit" @click='postComments'>SUBMIT</Button>
+      					</form>
+      				</div>
+       <div class="modal-footer">
+      	<h1>Previous Comments</h1>
+      	<div v-for="com in comments" class="comment" >
+      		<span>{{com.comment}}</span><br/>
+      		<span class="username-date">{{com.username}} on {{com.time}}</span>
+      	</div>
+      </div>
+                     </div>
+                 </div>
+             </div>
+         </transition>
+    </script>
     <script src="/js/vue.js"></script>
-	<script src="/js/axios.min.js"></script>
-	<script src="/js/script.js"></script>
-</body>
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
 </html>

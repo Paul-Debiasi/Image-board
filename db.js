@@ -18,15 +18,15 @@ module.exports.getImages = () => {
 module.exports.getSingleImage = (id) => {
     return db.query(`SELECT * FROM images WHERE id = $1`, [id]);
 };
-module.exports.getComments = (comment, username, imageId) => {
+module.exports.addComments = (comment, username, imageId) => {
     return db.query(
-        `INSERT INTO users (comment, username, imageId) 
+        `INSERT INTO comments (comment, username, imageId) 
         VALUES ($1, $2, $3) 
-        RETURNING comment, username, imageId, ;
+        RETURNING *;
 `,
         [comment, username, imageId],
     );
 };
-module.exports.imagesId = (imageId) => {
-    return db.query(`SELECT * FROM images WHERE imageId = $1`, [imageId]);
+module.exports.getCommentId = (imageId) => {
+    return db.query(`SELECT * FROM comments WHERE  imageid = $1`, [imageId]);
 };

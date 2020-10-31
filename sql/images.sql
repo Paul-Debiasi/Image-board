@@ -9,6 +9,18 @@ CREATE TABLE images(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS comments CASCADE;
+CREATE TABLE comments (
+     id SERIAL PRIMARY KEY,
+     comment TEXT NOT NULL, 
+     username TEXT NOT NULL, 
+     imageid INTEGER NOT NULL REFERENCES images(id) ON DELETE CASCADE,
+     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
 -- INSERT INTO images (url, username, title, description) VALUES (
 --     'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
 --     'funkychicken',
@@ -29,12 +41,3 @@ CREATE TABLE images(
 --     'To be or not to be',
 --     'That is the question.'
 -- );
-
-
-CREATE TABLE user (
-    id SERIAL PRIMARY KEY,
-    comment VARCHAR(255),
-    username VARCHAR(255),
-    imagesid INT NOT NULL UNIQUE REFERENCES images(id) ON DELETE CASCADE
-	time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);

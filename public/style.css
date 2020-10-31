@@ -1,20 +1,87 @@
 body {
-    background-color: darkslategray;
+  background-color: darkslategray;
 }
 img {
-    height: 200px;
-    width: 200px;
+  height: 200px;
+  width: 200px;
 }
 
-/* .inputfile label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
 }
 
-.inputfile:focus label,
-.inputfile label:hover {
-    background-color: red;
-} */
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: auto;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: dimgray;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header {
+  align-self: center;
+}
+.modal-body {
+  align-self: start;
+}
+
+.modal-footer {
+}
+
+.btn-close-modal {
+  align-self: start;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-close-modal:hover {
+  color: white;
+}
+
+.comment {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 0 5px 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  background-color: darkslategrey;
+  color: whitesmoke;
+}
+
+.username-date {
+  padding-top: 5px;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.input-modal {
+  border-radius: 5px;
+  border: 0;
+}
+
+.btn-modal-comment {
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: darkgoldenrod;
+}
