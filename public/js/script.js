@@ -55,7 +55,7 @@ Vue.component('my-component', {
         .post('/comment', userComments)
         .then(function (response) {
           console.log('post from methods:', response)
-          that.comments.unshift(response.data)
+          that.comments.unshift(response.data.rows)
         })
         .catch(function (err) {
           console.log('error in posting comments: ', err)
@@ -96,18 +96,18 @@ new Vue({
       console.log('response:', response)
       me.images = response.data
     })
-    var me = this
-    axios
-      .get(me.id)
-      .then(function () {
-        imageClicked()
-      })
-      .then(function (response) {
-        me.image = response.data[0]
-      })
-      .catch(function (err) {
-        console.log('err in imageSelected', err)
-      })
+    // var me = this
+    // axios
+    //   .get(me.id)
+    //   .then(function () {
+    //     imageClicked()
+    //   })
+    //   .then(function (response) {
+    //     me.image = response.data[0]
+    //   })
+    //   .catch(function (err) {
+    //     console.log('err in imageSelected', err)
+    //   })
   },
   methods: {
     handleClick: function (e) {
@@ -130,7 +130,11 @@ new Vue({
           // );
           // var res = response.data.image;
           // console.log("that.images:", that.images);
-          that.images.unshift(response.data.image)
+          that.images.unshift(response.data.rows)
+          that.title = ''
+          that.description = ''
+          that.username = ''
+          that.file = null
         })
         .catch(function (err) {
           console.log('error in POST /upload:', err)

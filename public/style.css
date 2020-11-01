@@ -2,8 +2,22 @@ body {
   background-color: darkslategray;
 }
 img {
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 300px;
+}
+.title {
+  padding-top: 5px;
+  font-style: italic;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 0;
+}
+.add {
+  border: crimson 2px solid;
+}
+
+.go {
+  border: yellow 3px solid;
 }
 
 .modal-mask {
@@ -24,17 +38,22 @@ img {
 }
 
 .modal-container {
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   width: 80%;
   height: auto;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 0 30px;
   background-color: dimgray;
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+.cmt {
+  margin: 0;
 }
 
 .modal-header {
@@ -45,6 +64,7 @@ img {
 }
 
 .modal-footer {
+  height: 500px;
 }
 
 .btn-close-modal {
@@ -62,8 +82,8 @@ img {
 .comment {
   border: 1px solid black;
   border-radius: 5px;
-  padding: 10px 0 5px 5px;
-  margin-bottom: 5px;
+  padding: 4px 0 5px 5px;
+  margin-bottom: 2px;
   font-size: 18px;
   background-color: darkslategrey;
   color: whitesmoke;
@@ -85,3 +105,17 @@ img {
   border-radius: 5px;
   background-color: darkgoldenrod;
 }
+
+/* New Modal */
+
+/* .modal {
+  position: fixed;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 2;
+  min-width: 100vw;
+  min-height: 2000px;
+  background-color: rgba(0, 0, 0, 0.7);
+} */

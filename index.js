@@ -52,12 +52,10 @@ app.post('/upload', uploader.single('file'), s3.upload, (req, res) => {
   // console.log("files:", req.file);
   if (req.file) {
     db.imagesInfo(title, description, username, imageUrl)
-      .then((results) => {
+      .then(({ rows }) => {
         // console.log("results:", results.rows[0]);
-        res.json({
-          success: true,
-          image: results.rows[0],
-        })
+        rows = rows[0]
+        res.json({ rows })
       })
       .catch((err) => {
         console.log('Error on imagesInfo', err)
@@ -104,7 +102,7 @@ app.post('/comment', (req, res) => {
   const { username, comment, id } = req.body
   db.addComments(username, comment, id)
     .then(({ rows }) => {
-      // rows = rows[0];
+      rows = rows[0]
       console.log('rows: ', rows)
       res.json({ rows })
     })
