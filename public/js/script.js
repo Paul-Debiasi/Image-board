@@ -1,5 +1,7 @@
 // const { response } = require("express");
 
+// const { EventListeners } = require('aws-sdk')
+
 console.log('Sanity??')
 Vue.component('my-component', {
   template: '#template',
@@ -19,6 +21,34 @@ Vue.component('my-component', {
       username: '',
       comments: [],
     }
+  },
+  watch: {
+    id: function () {
+      var me = this
+      console.log('imageSelected:', this.id)
+      axios
+        .get(`/image/${this.id}`)
+        .then(function (response) {
+          if (response.data != 0) {
+            me.imageInfo = response.data
+          } else {
+            me.$emit('close')
+          }
+          // console.log("mounted response:", response.data);
+        })
+        .catch(function (err) {
+          console.log('err in imageSelected', err)
+        })
+      axios
+        .get(`/comments/${this.id}`)
+        .then(function (response) {
+          me.comments = response.data
+          console.log('mounted1 response:', response.data)
+        })
+        .catch(function (err) {
+          console.log('err in imageSelected', err)
+        })
+    },
   },
   mounted: function () {
     var me = this
@@ -87,11 +117,14 @@ new Vue({
     file: null,
     checkForSomething: true,
     sayGreeting: 'hello',
-    imageSelected: false,
+    imageSelected: location.hash.slice(1),
   },
   mounted: function () {
-    // console.log("this.cities:", this.cities);
     var me = this
+    addEventListener('hashchange', function () {
+      me.imageSelected = location.hash.slice(1)
+    })
+    // console.log("this.cities:", this.cities);
     axios.get('/image').then(function (response) {
       console.log('response:', response)
       me.images = response.data
@@ -145,11 +178,15 @@ new Vue({
       // console.log("file:", e.target.files[0]);
       this.file = e.target.files[0]
     },
-    closeMePlease: function () {
-      console.log('closeMePlease is running')
-      // set the id to something falsy (null)
-      this.$emit('close')
+    closeModalMain: function () {
+      this.imageSelected = null
+      location.hash = ''
     },
+    // closeMePlease: function () {
+    //   console.log('closeMePlease is running')
+    //   // set the id to something falsy (null)
+    //   this.$emit('close')
+    // },
     imageClicked: function (e) {
       this.imageSelected = e
       console.log('image got clicked:', e)

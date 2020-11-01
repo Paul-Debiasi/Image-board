@@ -5,12 +5,63 @@ img {
   height: 300px;
   width: 300px;
 }
+
+.first-form {
+}
 .title {
+  font-style: normal;
+  font-family: helvetica, Arial;
   padding-top: 5px;
   font-style: italic;
   font-size: 12px;
   border-radius: 5px;
   border: 0;
+  height: 30px;
+  width: 300px;
+}
+.description {
+  font-style: normal;
+  font-family: helvetica, Arial;
+  padding-top: 5px;
+  font-style: italic;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 0;
+  height: 30px;
+  width: 300px;
+}
+.username {
+  font-family: helvetica, Arial;
+  font-style: normal;
+  height: 30px;
+  padding-top: 5px;
+  font-style: italic;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 0;
+  width: 300px;
+}
+.inputfile {
+  padding-top: 5px;
+  font-style: italic;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 0;
+}
+.first-btn {
+  text-align: center;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  width: 90px;
+  height: 30px;
+  font-size: 20px;
+}
+.uploaded-img {
+  height: 300px;
+  width: 300px;
+  border-radius: 8px;
+  border: white 2px solid;
 }
 .add {
   border: crimson 2px solid;
