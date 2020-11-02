@@ -6,122 +6,153 @@
   </head>
 
   <body>
-    <h1>This is the Imageboard!</h1>
-    <div id="main">
-      <my-component
-        v-if="imageSelected"
-        :id="imageSelected"
-        @close="closeModalMain"
-      ></my-component>
+    <div class="massive-wrapper">
+      <div class="big-wrapper">
+        <p id="h1">DREAMING ABOUT TRAVEL!</p>
+        <div id="main">
+          <my-component
+            v-if="imageSelected"
+            :id="imageSelected"
+            @close="closeModalMain"
+          ></my-component>
 
-      <form class="first-form" action="" autocomplete="off">
-        <!-- Whit v-model we are connecting the input field with script.js -->
-        <input
-          v-model="title"
-          type="text"
-          placeholder="title"
-          name="title"
-          class="title"
-          :class="[title.length < 3 ? 'add' : 'go']"
-        />
-        <input
-          v-model="description"
-          type="text"
-          name="description"
-          placeholder="description"
-          class="description description-add"
-        />
-        <input
-          v-model="username"
-          type="text"
-          name="username"
-          placeholder="username"
-          class="username username-add"
-        />
-        <label for="file">
-          <input
-            class="inputfile"
-            @change="handleChange"
-            type="file"
-            name="file"
-            accept="image/*"
-          />
-        </label>
-        <button class="first-btn" @click.prevent="handleClick">SUBMIT</button>
-      </form>
-      <ul>
-        <div v-for="image in images">
-          <a
-            style="text-decoration: none"
-            color="white"
-            class="links"
-            :href="'#'+ image.id"
-            ><img class="uploaded-img" :src="image.url" alt="" />
-            <p>{{ image.title }}</p></a
-          >
+          <form class="first-form" action="" autocomplete="off">
+            <!-- Whit v-model we are connecting the input field with script.js -->
+            <input
+              v-model="title"
+              type="text"
+              placeholder="title"
+              name="title"
+              class="title"
+              :class="[title.length < 4 ? 'add' : 'go']"
+            />
+            <input
+              v-model="description"
+              type="text"
+              name="description"
+              placeholder="description"
+              class="description description-add"
+            />
+            <input
+              v-model="username"
+              type="text"
+              name="username"
+              placeholder="username"
+              class="username username-add"
+            />
+            <label for="file">
+              <input
+                class="inputfile"
+                @change="handleChange"
+                type="file"
+                name="file"
+                accept="image/*"
+              />
+            </label>
+            <button class="first-btn" @click.prevent="handleClick">
+              SUBMIT
+            </button>
+          </form>
+          <div class="gallery-container">
+            <div v-for="image in images">
+              <div class="uploads">
+                <a
+                  style="text-decoration: none"
+                  color="white"
+                  class="links"
+                  :href="'#'+ image.id"
+                  ><img class="uploaded-img" :src="image.url" alt="" />
+                  <p>{{ image.title }}</p></a
+                >
+              </div>
+            </div>
+          </div>
+          <button class="more" v-if="button" @click="moreImages">MORE</button>
         </div>
-      </ul>
+      </div>
       <!-- In say-greeting we using column(:) so we can change dynamically change value of it -->
     </div>
     <!-- Our script need to be outside of main -->
     <script type="text/x-template" id="template" src="">
-           <transition name="my-component">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-      	<div class="modal-container">
-      	  <!-- <div class="component"> -->
-      	  <button class="btn-close-modal" @click="closeModal">X</button>
-      	  <div class="modal-header">
-      		<h1>Hi I'm the modal</h1>
-      		<img :src="imageInfo.url" alt="" />
-      		<!-- <p>{{imageInfo.url}}</p> -->
-      		<p>{{imageInfo.title}}</p>
-      		<p>{{imageInfo.description}}</p>
-      		<p>Uploaded by {{imageInfo.username}}</p>
-      	  </div>
-      	  <div class="modal-body">
-      		<h1>Add Comment!</h1>
-      		<form action="" autocomplete="off">
-      		  <label for="comments">Comment</label>
-      		  <input
-      			class="input-modal"
-      			v-model="comment"
-      			type="text"
-      			name="comment"
-      			placeholder="Put your comment here"
-      		  />
-      		  <label for="username">Username</label>
-      		  <input
-      			class="input-modal"
-      			v-model="username"
-      			type="text"
-      			name="username"
-      			placeholder="User..."
-      		  />
-      		  <input v-model="imageId" type="hidden" name="imageId" />
-      		  <button
-      			class="btn-modal-comment"
-      			type="submit"
-      			@click="postComments"
-      		  >
-      			SUBMIT
-      		  </button>
-      		</form>
-      	  </div>
-      	  <div class="modal-footer">
-      		<h1 class="cmt">Previous Comments</h1>
-      		<div v-for="com in comments" class="comment">
-      		  <span>{{com.comment}}</span><br />
-      		  <span class="username-date">{{com.username}} on {{com.time}}</span>
-      		</div>
-      	  </div>
+                                         <transition name="my-component">
+                                    <div class="modal-mask">
+                                      <div class="modal-wrapper">
+                                    	<div class="modal-container">
+                                    	  <!-- <div class="component"> -->
+              			                  <div class="modal-header">
+                                    	  <button class="btn-close-modal" @click="closeModal">X</button>
+                                         <h1 class="my-title">MY PERFECT PICTURE</h1>
+                             		        <img class="modal-pic" :src="imageInfo.url" alt="" />
+      					<!-- <p>{{imageInfo.url}}</p> -->
+      					<div class="img-info">
+      	  <div>
+      					<h3>{{imageInfo.title}}</h3>
       	</div>
+      	<div>
+      					<h5>{{imageInfo.description}}</h4>
+      	</div>
+      	<div>
+      					<h6>Uploaded by {{imageInfo.username}}</h4>
+      	</div>
+
+      				  </div>
+      				</div>
+
+                       </div>
+                       <div class="modal-container">
+              			<div class="modal-body">
+              				<h1 class="my-title">ADD YOUR COMMENT!</h1>
+              				<form action="" autocomplete="off">
+      						 <div class="comment-container">
+             	        <div class='right-comment'>
+              				  <label for="comments">Comment</label>
+              				  <input
+              					class="input-modal"
+              					v-model="comment"
+              					type="text"
+              					name="comment"
+              					placeholder="Put your comment here"/>
+                          </div>
+                          <div class='right-username'>
+              				  <label for="username">Username</label>
+              				  <input
+              					class="input-modal"
+              					v-model="username"
+              					type="text"
+              					name="username"
+              					placeholder="User..."
+              				  />
+            	                   <input v-model="imageId" type="hidden" name="imageId" />
+           </div>
+           <div class="right-button">
+              				  <button
+              					class="btn-modal-comment"
+              					type="submit"
+              					@click="postComments">
+
+              					SUBMIT
+           	  </button>
         </div>
       </div>
-       </transition>
+              				</form>
+              			  </div>
+              			  <div class="modal-footer">
+              				<h1 class="my-title">PREVIOUS COMMENTS</h1>
+              				<div v-for="com in comments" class="comment">
+              			  <div>
+              				  <span>{{com.comment}}</span><br />
+              				  <span class="username-date">{{com.username}}. - on - {{com.time}}</span>
+              			   </div>
+              		 </div>
+              </div>
 
 
-           </div>
+                                  </div>
+
+                                  </div>
+                                 </div>
+                                </transition>
+                             </div>
     </script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>

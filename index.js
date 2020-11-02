@@ -112,4 +112,15 @@ app.post('/comment', (req, res) => {
     })
 })
 
+app.get('/images/:id', (req, res) => {
+  const { id } = req.params
+  db.getMoreImages(id)
+    .then(({ rows }) => {
+      res.json(rows)
+    })
+    .catch((err) => {
+      console.log('Error in getMoreImages:', err)
+    })
+})
+
 app.listen(8080, () => console.log('Server is running...'))

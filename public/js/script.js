@@ -43,7 +43,7 @@ Vue.component('my-component', {
         .get(`/comments/${this.id}`)
         .then(function (response) {
           me.comments = response.data
-          console.log('mounted1 response:', response.data)
+          //   console.log('mounted1 response:', response.data)
         })
         .catch(function (err) {
           console.log('err in imageSelected', err)
@@ -66,7 +66,7 @@ Vue.component('my-component', {
       .get(`/comments/${this.id}`)
       .then(function (response) {
         me.comments = response.data
-        console.log('mounted1 response:', response.data)
+        // console.log('mounted1 response:', response.data)
       })
       .catch(function (err) {
         console.log('err in imageSelected', err)
@@ -86,6 +86,8 @@ Vue.component('my-component', {
         .then(function (response) {
           console.log('post from methods:', response)
           that.comments.unshift(response.data.rows)
+          that.username = ''
+          that.comment = ''
         })
         .catch(function (err) {
           console.log('error in posting comments: ', err)
@@ -118,6 +120,7 @@ new Vue({
     checkForSomething: true,
     sayGreeting: 'hello',
     imageSelected: location.hash.slice(1),
+    button: true,
   },
   mounted: function () {
     var me = this
@@ -191,6 +194,28 @@ new Vue({
       this.imageSelected = e
       console.log('image got clicked:', e)
       // console.log("imageInfo :", this.imageInfo);
+    },
+    moreImages: function (e) {
+      e.preventDefault()
+      const imagesId = this.images.map(({ id }) => id)
+      const smallerId = Math.min(...imagesId)
+      let that = this
+      axios
+        .get(`/images/${smallerId}`)
+        .then(function (response) {
+          that.images = [...that.images, ...response.data]
+          console.log('More Images:', response.data)
+          if (
+            that.images.filter(function (evt) {
+              return evt.id === response.data[0].lowestId
+            }).length > 0
+          ) {
+            that.button = false
+          }
+        })
+        .catch((err) => {
+          console.log('Error on moreImages', err)
+        })
     },
   },
 })
