@@ -1,0 +1,54 @@
+<transition name="my-component">
+  <div class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <!-- <div class="component"> -->
+        <button class="btn-close-modal" @click="$emit('close')">X</button>
+        <div class="modal-header">
+          <h1>Hi I'm the modal</h1>
+          <img :src="imageInfo.url" alt="" />
+          <!-- <p>{{imageInfo.url}}</p> -->
+          <p>{{imageInfo.title}}</p>
+          <p>{{imageInfo.description}}</p>
+          <p>Uploaded by {{imageInfo.username}}</p>
+        </div>
+        <div class="modal-body">
+          <h1>Add Comment!</h1>
+          <form action="" autocomplete="off">
+            <label for="comments">Comment</label>
+            <input
+              class="input-modal"
+              v-model="comment"
+              type="text"
+              name="comment"
+              placeholder="Put your comment here"
+            />
+            <label for="username">Username</label>
+            <input
+              class="input-modal"
+              v-model="username"
+              type="text"
+              name="username"
+              placeholder="User..."
+            />
+            <input v-model="imageId" type="hidden" name="imageId" />
+            <button
+              class="btn-modal-comment"
+              type="submit"
+              @click="postComments"
+            >
+              SUBMIT
+            </button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <h1>Previous Comments</h1>
+          <div v-for="com in comments" class="comment">
+            <span v-text="Comment">{{com.comment}}</span><br />
+            <span class="username-date">{{com.username}} on {{com.time}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</transition>
